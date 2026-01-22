@@ -7,14 +7,14 @@ import joblib
 model = joblib.load("modelXGboost.pkl")
 
 # Title
-st.title("📊 Prediksi Berdasarkan 3 Fitur Masukan")
+st.title("Prediksi Berdasarkan 3 Fitur Masukan")
 st.write("Masukkan data di bawah ini untuk mendapatkan hasil prediksi dari model XGBoost.")
 
 # Input fields
-country = st.text_input("🌍 Country/Region", "Indonesia")
-adult_prevalence = st.text_input("💉 Adult prevalence (%)", "1.5")
-annual_deaths = st.text_input("⚰️ Annual deaths", "15000")
-year_of_estimate = st.text_input("📆 Year of estimate", "2022")
+country = st.text_input("Country/Region", "Indonesia")
+adult_prevalence = st.text_input("Adult prevalence (%)", "1.5")
+annual_deaths = st.text_input("Annual deaths", "15000")
+year_of_estimate = st.text_input("Year of estimate", "2022")
 
 # Process input
 def preprocess_input(adult_prev, deaths, year):
@@ -36,6 +36,6 @@ if st.button("🔍 Prediksi"):
     if input_df is not None:
         try:
             prediction = model.predict(input_df)
-            st.success(f"🎯 Hasil Prediksi: {prediction[0]:,.2f}")
+            st.success(f"Hasil Prediksi: {prediction[0]:,.2f}")
         except Exception as e:
-            st.error(f"❌ Gagal melakukan prediksi: {e}")
+            st.error(f"Gagal melakukan prediksi: {e}")
