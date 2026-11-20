@@ -1,12 +1,41 @@
-# HIV Prevalence Prediction with XGBoost
+# HIV Prevalence Estimation with XGBoost
 
-## Application Preview
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://xgboost-hiv-study.streamlit.app/)
 
-![Dashboard](assets/dashboard.png)
+A regression project exploring how machine learning can be used to estimate the number of people living with HIV/AIDS based on epidemiological indicators.
 
-An exploratory regression project that estimates the number of people living with HIV/AIDS using adult prevalence, annual deaths, and the year of estimate.
+## Live Application
 
-## Project structure
+[**Launch the interactive dashboard →**](https://xgboost-hiv-study.streamlit.app/)
+
+![Application Dashboard](assets/dashboard.png)
+
+## Overview
+
+This project explores the use of **XGBoost Regression** to estimate the number of people living with HIV/AIDS using three input variables:
+
+- Adult HIV prevalence
+- Annual deaths from HIV/AIDS
+- Year of estimate
+
+The work covers data preparation, model training, evaluation, and deployment through an interactive Streamlit application.
+
+## Model
+
+| Component | Description |
+|---|---|
+| Algorithm | XGBoost Regressor |
+| Input features | Adult prevalence, annual deaths, year |
+| Prediction target | Number of people living with HIV/AIDS |
+| Estimators | 100 |
+| Learning rate | 0.1 |
+| Maximum depth | 5 |
+| Random state | 42 |
+| Evaluation metrics | MAE, RMSE, R² |
+
+The trained model and preprocessing pipeline are saved together using Joblib, allowing the application to load the same pipeline for inference.
+
+## Project Structure
 
 ```text
 xgboost-hiv-study/
@@ -15,40 +44,63 @@ xgboost-hiv-study/
 ├── hiv_prevalence.csv
 ├── XGBoost_Regression.ipynb
 ├── requirements.txt
-└── model/
-    ├── xgboost_pipeline.joblib
-    └── metrics.json
+├── model/
+│   ├── metrics.json
+│   └── xgboost_pipeline.joblib
+└── assets/
+    └── dashboard.png
 ```
 
-## Run locally
+## Run Locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/haninhammoud01/xgboost-hiv-study.git
+cd xgboost-hiv-study
+```
+
+Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
+```
+
+On Windows:
+
+```powershell
 .venv\Scripts\activate
+```
+
+On macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies and run the application:
+
+```bash
 pip install -r requirements.txt
-python train_model.py
 streamlit run app.py
 ```
 
-On macOS/Linux, activate the environment with `source .venv/bin/activate`.
+To retrain the model:
 
-## Model
+```bash
+python train_model.py
+```
 
-- Algorithm: `XGBRegressor`
-- Features: `Adult_Prevalence`, `Annual_Deaths`, `Year_of_estimate`
-- Target: `Num_People`
-- Parameters: `n_estimators=100`, `learning_rate=0.1`, `max_depth=5`, `random_state=42`
-- Evaluation: MAE, RMSE, and R² using an 80:20 train-test split.
+## Notes & Limitations
 
-The preprocessing and model are stored together in a scikit-learn pipeline. The scaler is retained to stay close to the original notebook workflow; feature scaling is not generally necessary for tree-based XGBoost models.
+This project is intended for educational and exploratory purposes. The dataset contains incomplete observations and records from different estimation years, which may affect model performance and generalization.
 
-## Deploy on Streamlit Community Cloud
+The predictions should not be interpreted as official HIV statistics, clinical assessments, or a basis for public-health decisions.
 
-1. Push this project to a GitHub repository.
-2. Open [Streamlit Community Cloud](https://share.streamlit.io/).
-3. Select **Create app**, choose the repository and branch, and set the main file path to `app.py`.
-4. Deploy. Keep `hiv_prevalence.csv`, `model/`, and `requirements.txt` in the repository.
+## Tech Stack
 
-## Limitations
+`Python` · `Pandas` · `NumPy` · `Scikit-learn` · `XGBoost` · `Joblib` · `Streamlit`
 
-The uploaded dataset contains 187 country records, but only 67 rows have complete values for all model features and target. Estimates are drawn from different years. The model is intended for learning and exploration, not clinical diagnosis, official reporting, or public-health decision-making. A single train-test split on a small dataset can produce unstable evaluation results.
+---
+
+**Author:** [Hanin Hammoud](https://github.com/haninhammoud01)
